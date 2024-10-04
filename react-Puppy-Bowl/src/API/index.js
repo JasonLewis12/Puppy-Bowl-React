@@ -6,6 +6,7 @@ export async function getAllPuppys() {
   try {
     const response = await fetch(`${API_URL}/players`);
     const data = await response.json();
+    console.log(data);
     return data;
   } catch (error) {
     "there was an error in your get request", error;
