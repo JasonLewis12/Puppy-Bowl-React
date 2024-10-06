@@ -1,17 +1,27 @@
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
-import PuppyList from "./components/puppyList";
+import { useEffect } from "react";
+import { getAllPuppys } from "./API";
+import PuppyCard from "./components/puppyCard";
 import "./App.css";
 
 function App() {
-  const [puppy, setPuppy] = useState(null);
+  const [puppy, setPuppy] = useState([]);
 
+  useEffect(() => {
+    async function fetchAllPuppys() {
+      const puppys = await getAllPuppys();
+      setPuppy(puppys);
+    }
+    fetchAllPuppys();
+  }, []);
   return (
     <div>
-      <PuppyList puppy={puppy} setpuppy={setPuppy} />
+      {puppy.map((puppys) => {
+        return <PuppyCard key={puppys.id} puppy={puppys} />;
+      })}
     </div>
   );
 }
-
 export default App;
