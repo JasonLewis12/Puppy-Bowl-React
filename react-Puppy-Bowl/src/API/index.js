@@ -13,11 +13,12 @@ export async function getAllPuppys() {
 }
 
 // create get single request
-export async function getOnePuppy(id) {
+export async function GetOnePuppy(id) {
   try {
     const reponse = await fetch(`${API_URL}/players/${id}`);
     const data = await reponse.json();
-    return data;
+    console.log(data.data.player);
+    return data.data.player;
   } catch (error) {
     "there was an error in your get single request", error;
   }

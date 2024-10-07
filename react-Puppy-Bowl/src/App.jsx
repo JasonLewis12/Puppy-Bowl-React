@@ -1,27 +1,28 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import { useEffect } from "react";
 import { getAllPuppys } from "./API";
-import PuppyCard from "./components/puppyCard";
+import SinglePuppy from "./components/SinglePuppy";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import FetchPups from "./FetchPups";
 import "./App.css";
 
 function App() {
   const [puppy, setPuppy] = useState([]);
+  const [singlePup, SetSinglePup] = useState(null);
 
-  useEffect(() => {
-    async function fetchAllPuppys() {
-      const puppys = await getAllPuppys();
-      setPuppy(puppys);
-    }
-    fetchAllPuppys();
-  }, []);
   return (
-    <div>
-      {puppy.map((puppys) => {
-        return <PuppyCard key={puppys.id} puppy={puppys} />;
-      })}
-    </div>
+    <>
+      {singlePup ? (
+        <SinglePuppy singlePup={singlePup} SetSinglePup={SetSinglePup} />
+      ) : (
+        <FetchPups setPuppy={setPuppy} puppy={puppy} />
+      )}
+      <Routes>
+        <Route />
+        <Route />
+        <Route path="/:id" element={<SinglePuppy />} />
+      </Routes>
+    </>
   );
 }
 export default App;
